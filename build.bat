@@ -1,0 +1,1 @@
+powershell -command "go build -o bin/ ./..."

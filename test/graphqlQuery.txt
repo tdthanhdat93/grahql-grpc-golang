@@ -1,0 +1,167 @@
+mutation testCreatePlane {
+  createPlane(input: {id: "VN-A815", type: "Airbus A330-343", totalSeat: 245, status: STS_READY}) {
+    id
+    type
+    totalSeat
+    status
+  }
+}
+
+query testListPlanes {
+  planes {
+    id
+    type
+    totalSeat
+    status
+  }
+}
+
+mutation testUpdatePlaneStatus {
+  updatePlane(input: {id: "B-20D8", status:STS_CLEANING}) {
+    id
+    status
+  }
+}
+
+mutation testUpdatePlaneTotalSeat {
+  updatePlane(input: {id: "B-6623", totalSeat:211}) {
+    id
+    totalSeat
+  }
+}
+
+mutation testCreateFlight {
+  createFlight(input: {
+      id:"VJ822", 
+      planeId:"VN-A815", 
+      departure: "HO CHI MINH CITY", arrival: "TOKYO", 
+      timeDepart: {year: 2023, month:6, day: 9, hours: 23, minutes: 20},
+    	timeArrive:{year: 2023, month:6, day: 10, hours: 7, minutes: 40},
+      availableSeat: 216}) {
+    id
+    planeId
+    departure
+    arrival
+		timeDepart {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    timeArrive {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    availableSeat
+  }
+}
+
+query testListFlights {
+  flights {
+    id
+    planeId
+    departure
+    arrival
+		timeDepart {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    timeArrive {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    availableSeat
+  }
+}
+
+mutation testDeletePlane {
+  deletePlane(input: { id: "B-LJJ"}) {
+    id
+  }
+}
+
+mutation testUpdateFlight {
+  updateFlight(input: {
+    id: "JQ64", 
+    availableSeat: 2, 
+    timeDepart:{
+        year: 2023,
+        month: 6,
+        day: 18,
+        hours: 10,
+        minutes: 35}
+    departure: "HO CHI MINH CITY"
+  	}) {
+    id
+    planeId
+    departure
+    arrival
+		timeDepart {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    timeArrive {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    availableSeat
+  }
+}
+
+query testFindFlights {
+  findFlights(param: {
+    departure: "HANOI"
+    arrival: "HO CHI MINH CITY"
+    startTimeRange: {year: 2023, month:6, day: 10, hours: 3, minutes: 0},
+    endTimeRange: {year: 2023, month:6, day: 10, hours: 23, minutes: 20},
+  }) {
+    id
+    planeId
+    departure
+    arrival
+		timeDepart {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    timeArrive {
+      year
+      month
+      day
+      hours
+      minutes
+    }
+    availableSeat
+  }
+}
+
+mutation testBookFlight {
+  bookFlight(input: {flightId: "JQ64"}) {
+    id
+    availableSeat
+  }
+}
+
+mutation testDeleteFlight {
+  deleteFlight(input: { id: "QF7581"}) {
+    id
+  }
+}

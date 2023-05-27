@@ -1,0 +1,78 @@
+scalar Time
+
+type DateTime {
+    year: Int!
+    month: Int!
+    day: Int!
+    hours: Int!
+    minutes: Int!
+}
+
+type Flight {
+    id: String!
+    planeId: String!
+    departure: String!
+    arrival: String!
+    timeDepart: DateTime!
+    timeArrive: DateTime!
+    availableSeat: Int!
+}
+
+type DeletedFlight {
+    id: String!
+}
+
+input InputDateTime  {
+    year: Int!
+    month: Int!
+    day: Int!
+    hours: Int!
+    minutes: Int!
+}
+
+input NewFlight {
+    id: String!
+    planeId: String!
+    departure: String!
+    arrival: String!
+    timeDepart: InputDateTime!
+    timeArrive: InputDateTime!
+    availableSeat: Int!
+}
+
+input UpdateFlight {
+    id: String!
+    planeId: String
+    departure: String
+    arrival: String
+    timeDepart: InputDateTime
+    timeArrive: InputDateTime
+    availableSeat: Int
+}
+
+input FindFlightParams {
+    departure: String
+    arrival: String
+    startTimeRange: InputDateTime
+    endTimeRange: InputDateTime
+}
+
+input Booking {
+    flightId: String!
+}
+
+input DeleteFlight {
+    id: String!
+}
+
+extend type Query {
+    flights: [Flight!]!
+    findFlights(param: FindFlightParams!): [Flight!]!
+}
+
+extend type Mutation {
+    createFlight(input: NewFlight!): Flight!
+    updateFlight(input: UpdateFlight!): Flight!
+    bookFlight(input: Booking!): Flight!
+    deleteFlight(input: DeleteFlight!): DeletedFlight!
+}

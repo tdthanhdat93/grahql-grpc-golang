@@ -1,0 +1,45 @@
+enum PlaneStatus {
+    STS_UNSPECIFIED
+    STS_CLEANING
+    STS_MAINTAIN
+    STS_READY
+}
+
+type Plane {
+    id: String!
+    type: String!
+    totalSeat: Int!
+    status: PlaneStatus!
+}
+
+type DeletedPlane {
+    id: String!
+}
+
+input NewPlane {
+    id: String!
+    type: String!
+    totalSeat: Int!
+    status: PlaneStatus!
+}
+
+input UpdatePlane {
+    id: String!
+    type: String
+    totalSeat: Int
+    status: PlaneStatus
+}
+
+input DeletePlane {
+    id: String!
+}
+
+type Query {
+    planes: [Plane!]!
+}
+
+type Mutation {
+    createPlane(input: NewPlane!): Plane!
+    updatePlane(input: UpdatePlane!): Plane!
+    deletePlane(input: DeletePlane!): DeletedPlane!
+}

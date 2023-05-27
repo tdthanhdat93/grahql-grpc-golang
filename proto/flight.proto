@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;pb";
+
+import "datetime.proto";
+import "google/protobuf/empty.proto";
+
+message FlightInfo {
+    string id = 1;
+    string plane_id = 2;
+    string departure = 3;
+    string arrival = 4;
+    // google.protobuf.Timestamp time_depart = 5;
+    DateTime time_depart = 5;
+    DateTime time_arrive = 6;
+    int32 available_seat = 7;
+}
+
+
+message FindFlightByPlaneIdRequest {
+    string plane_id = 1;
+}
+
+message FindFlightRequest {
+    string departure = 1;
+    string arrival = 2;
+    DateTime start_time_range = 3;  // range find of time depart
+    DateTime end_time_range = 4;
+}
+
+message BookingRequest {
+    string flight_id = 1;
+}
+
+message DeleteFlightByIdRequest {
+    string id = 1;
+}
+service FlightService {
+    rpc CreateFlight(FlightInfo) returns (FlightInfo) {}
+    rpc UpdateFlight(FlightInfo) returns (FlightInfo) {}
+    rpc ListFlights(google.protobuf.Empty) returns (stream FlightInfo) {}
+    rpc FindFlightsByPlaneId(FindFlightByPlaneIdRequest) returns (stream FlightInfo) {}
+    rpc FindFlights(FindFlightRequest) returns (stream FlightInfo) {}
+    rpc BookFlight(BookingRequest) returns (FlightInfo) {}
+    rpc DeleteFlight(DeleteFlightByIdRequest) returns (google.protobuf.Empty) {}
+}
